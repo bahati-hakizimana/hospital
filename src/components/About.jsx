@@ -1,5 +1,5 @@
 import React from "react";
-import img from "../assets/img/about.jpg";
+import remera_about from "../assets/img/remera_about.png";
 
 const About = () => {
   return (
@@ -25,8 +25,8 @@ const About = () => {
           placeat illo maxime ea.
         </p>
       </div>
-      <div className=" w-full lg:w-3/4">
-        <img className=" rounded-lg" src={img} alt="img" />
+      <div className=" w-full lg:w-3/4 h-full">
+        <img className=" rounded-lg" src={remera_about} alt="img" />
       </div>
     </div>
   );

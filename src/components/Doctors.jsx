@@ -8,35 +8,31 @@ import { FaArrowRight } from "react-icons/fa";
 const Doctors = () => {
   const data = [
     {
-      img: "/src/assets/img/doc1.jpg",
-      name: "Dr. Serena Mitchell",
-      specialties: "Orthopedic Surgeon",
+      img: "/src/assets/img/nyirigira.png",
+      name: "Dr. Gaston NYIRIGIRA",
+      specialties: "Umubazi wubwonko",
     },
     {
-      img: "/src/assets/img/doc2.jpg",
-      name: "Dr. Julian Bennett",
-      specialties: "Cardiologist",
+      img: "/src/assets/img/nyirigira.png",
+      name: "Dr. Gaston NYIRIGIRA",
+      specialties: "Nitrtionist",
     },
     {
-      img: "/src/assets/img/doc3.jpg",
-      name: "Dr. Camila Rodriguez",
-      specialties: "Pediatrician",
+      img: "/src/assets/img/nyirigira.png",
+      name: "Dr. Gaston NYIRIGIRA",
+      specialties: "Umubazi wamaso",
     },
     {
-      img: "/src/assets/img/doc4.jpg",
-      name: "Dr. Victor Nguyen",
+      img: "/src/assets/img/nyirigira.png",
+      name: "Dr. Dr. Gaston NYIRIGIRA",
       specialties: "Neurologist",
     },
     {
-      img: "/src/assets/img/doc5.jpg",
-      name: "Dr. Ethan Carter",
+      img: "/src/assets/img/nyirigira.png",
+      name: "Dr. Gaston NYIRIGIRA",
       specialties: "Dermatologist",
     },
-    {
-      img: "/src/assets/img/doc6.jpg",
-      name: "Dr. Olivia Martinez",
-      specialties: "Ophthalmologist",
-    },
+   
   ];
 
   const slider = useRef(null);

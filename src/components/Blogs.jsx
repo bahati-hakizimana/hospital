@@ -1,10 +1,11 @@
 import React from "react";
 import Button from "../layouts/Button";
 import BlogCard from "../layouts/BlogCard";
-import img1 from "../assets/img/blog1.jpg";
-import img2 from "../assets/img/blog2.jpg";
-import img3 from "../assets/img/blog3.jpg";
-import img4 from "../assets/img/blog4.jpg";
+import post1 from "../assets/img/post1.jpeg";
+import post2 from "../assets/img/post2.jpeg";
+import post3 from "../assets/img/post3.jpeg";
+import post4 from "../assets/img/post3.jpeg";
+
 import img5 from "../assets/img/blog5.jpg";
 import img6 from "../assets/img/blog6.jpg";
 
@@ -22,18 +23,21 @@ const Blogs = () => {
           </p>
         </div>
         <div className=" mt-4 lg:mt-0">
-          <Button title="Our Articles" />
+          <a href="#">
+          <Button title="Request" />
+          </a>
+          
         </div>
       </div>
       <div className=" my-8">
         <div className=" flex flex-wrap justify-center gap-5">
-          <BlogCard img={img1} headlines="Unraveling the Mysteries of Sleep" />
-          <BlogCard img={img2} headlines="The Heart-Healthy Diet" />
+          <BlogCard img={post1} headlines="Unraveling the Mysteries of Sleep" />
+          <BlogCard img={post2} headlines="The Heart-Healthy Diet" />
           <BlogCard
-            img={img3}
+            img={post3}
             headlines="Understanding Pediatric Vaccinations"
           />
-          <BlogCard img={img4} headlines="Navigating Mental Health" />
+          <BlogCard img={post4} headlines="Navigating Mental Health" />
           <BlogCard img={img5} headlines="The Importance of Regular Exercise" />
           <BlogCard img={img6} headlines="Skin Health 101" />
         </div>

@@ -15,9 +15,9 @@ const Services = () => {
   const icon3 = <FaHeartbeat size={35} className=" text-backgroundColor" />;
 
   return (
-    <div className=" min-h-screen flex flex-col justify-center lg:px-32 px-5 pt-24 lg:pt-16">
+    <div className=" min-h-screen flex flex-col justify-center lg:px-32 px-5 pt-24 lg:pt-16" id="service">
       <div className=" flex flex-col items-center lg:flex-row justify-between">
-        <div>
+        <div className=" ml-8">
           <h1 className=" text-4xl font-semibold text-center lg:text-start">
             Our Services
           </h1>
@@ -26,9 +26,9 @@ const Services = () => {
             quidem.
           </p>
         </div>
-        <div className=" mt-4 lg:mt-0">
+        {/* <div className=" mt-4 lg:mt-0">
           <Button title="See Services" />
-        </div>
+        </div> */}
       </div>
       <div className=" flex flex-col lg:flex-row gap-5 pt-14">
         <ServicesCard icon={icon1} title="Lab Test" />

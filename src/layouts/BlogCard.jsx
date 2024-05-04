@@ -13,6 +13,7 @@ const BlogCard = ({ img, headlines }) => {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae,
         repellendus suscipit. Rerum consequatur magni expedita.
       </p>
+      
     </div>
   );
 };
