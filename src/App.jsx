@@ -1,41 +1,19 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import Home from "./components/Home";
-import About from "./components/About";
-import Services from "./components/Services";
-import Doctors from "./components/Doctors";
-import Blogs from "./components/Blogs";
-import Footer from "./components/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./components/homepage/HomePage";
+import Layout from './components/admin/Layout';
+import User_Layout from './components/user/User_Layout'
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
+   <BrowserRouter>
 
-      <main>
-        <div id="home">
-          <Home />
-        </div>
-
-        <div id="about">
-          <About />
-        </div>
-
-        <div id="services">
-          <Services />
-        </div>
-
-        <div id="doctors">
-          <Doctors />
-        </div>
-
-        <div id="blog">
-          <Blogs />
-        </div>
-      </main>
-
-      <Footer />
-    </div>
+   <Routes>
+    <Route path="/"  element={<HomePage />} />
+    <Route path="/admin" element={<Layout />} ></Route>
+    <Route path="/user"  element={<User_Layout />}></Route>
+   </Routes>
+   </BrowserRouter>
   );
 };
 
