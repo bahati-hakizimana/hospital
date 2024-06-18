@@ -18,30 +18,14 @@ function Sidebar() {
 
   const handleLinkClick = (index) => {
     setActiveLink(index);
-    // if (index === 2) {
-    //   setIsInstitutionOpen(!isInstitutionOpen);
-    // } else {
-    //   setIsInstitutionOpen(false);
-    // }
+  
   };
 
   const Sidebar_Links = [
-    // { id: 1, name: 'Dashboard', path: '/user', icon: <MdDashboard /> },
-    // { id: 2, name: 'Users', path: '/user/users', icon: <FaUsers /> },
-    // {
-    //   id: 3, 
-    //   name: 'Institution',
-    //   path:"/user/instutitions", 
-    //   icon: <BiSolidInstitution />,
-    // },
-    
-    // { id: 4, name: 'Departments', path: '/user/departiments', icon: <FcDepartment />
-    
-    // },
-    // { id: 5, name: 'Policies', path: '/user/policies', icon: <MdOutlinePolicy /> },
+   
     { id: 6, name: 'Coments', path: '/user/coments', icon: <FaCommentDots /> },
     { id: 6, name: 'Request', path: '/user/requests', icon: <FaCodePullRequest /> },
-    // { id: 7, name: 'Excel', path: '/user/excel', icon: <FaFileExcel /> },
+    
   ];
 
   return (

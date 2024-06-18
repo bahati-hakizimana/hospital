@@ -28,20 +28,9 @@ function Sidebar() {
   const Sidebar_Links = [
     { id: 1, name: 'Dashboard', path: '/admin', icon: <MdDashboard /> },
     { id: 2, name: 'Users', path: '/admin/users', icon: <FaUsers /> },
-    // {
-    //   id: 3, 
-    //   name: 'Institution',
-    //   path:"/admin/instutitions", 
-    //   icon: <BiSolidInstitution />,
-    // },
-    
-    // { id: 4, name: 'Departments', path: '/admin/departiments', icon: <FcDepartment />
-    
-    // },
-    // { id: 5, name: 'Policies', path: '/admin/policies', icon: <MdOutlinePolicy /> },
     { id: 6, name: 'Coments', path: '/admin/coments', icon: <FaCommentDots /> },
     { id: 6, name: 'Requests', path: '/admin/requests', icon: <FaCodePullRequest /> },
-    // { id: 7, name: 'Excel', path: '/admin/excel', icon: <FaFileExcel /> },
+   
   ];
 
   return (
