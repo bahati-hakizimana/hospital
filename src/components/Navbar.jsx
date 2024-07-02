@@ -83,24 +83,14 @@ const Navbar = () => {
             >
               Blog
             </ScrollLink>
-            <Link
-              to="/admin"
-              className="hover:text-hoverColor bg-white px-4 py-2 rounded-full text-black transition-all cursor-pointer"
-            >
-              Admin
-            </Link>
+           
             <Link
               to="/login"
               className="hover:text-hoverColor bg-white px-4 py-2 rounded-full text-black transition-all cursor-pointer"
             >
               Login
             </Link>
-            <Link
-              to="/user"
-              className="hover:text-hoverColor bg-white px-4 py-2 rounded-full text-black transition-all cursor-pointer"
-            >
-              User
-            </Link>
+            
           </nav>
 
           {showForm && <Contact closeForm={closeForm} />}

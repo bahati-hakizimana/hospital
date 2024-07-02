@@ -5,46 +5,30 @@ import { LockClosedIcon } from '@heroicons/react/20/solid';
 
 const Register = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    username: '',
-    email: '',
-    phone: '',
+
+  const [data, setData] = useState({
+    email: "",
+    phone: "",
+    username: "",
+    password: ""
   });
-  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Register the user
-      const response = await axios.post('https://policy-link-rwanda-client-project-with.onrender.com/account/signup/', formData);
-      if (response.data.success) {
-        // Save user email in sessionStorage
-        sessionStorage.setItem('userEmail', formData.email);
-        console.log("this is data", response.data);
-        
-        // Send the password to the user's email
-        const sendPasswordResponse = await axios.post('https://policy-link-rwanda-client-project-with.onrender.com/account/send-password/', { email: formData.email });
-        if (sendPasswordResponse.data.success) {
-          // Redirect to password verification page
-          navigate('/verifypassword');
-        } else {
-          setError('Failed to send password. Please try again.');
+      const res = await axios.post("http://127.0.0.1:8000/signup/", data, {
+        headers: {
+          'Content-Type': 'application/json'
         }
-      } else {
-        setError('Registration failed. Please try again.');
+      });
+      if (res.data) {
+        alert("You have registerd successful");
+        navigate('/login');
       }
-    } catch (error) {
-      console.error('Error during registration:', error);
-      setError('An error occurred. Please try again.');
+    } catch (err) {
+      console.log(err);
     }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  }
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white">
@@ -55,59 +39,7 @@ const Register = () => {
       </div>
       <small className='mt-1.5 text-center'>Create New Account for Free</small>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        {error && <p className="text-red-500 text-sm">{error}</p>}
         <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-gray-900">
-              First Name
-            </label>
-            <div className="mt-2">
-              <input
-                id="firstname"
-                name="firstname"
-                type="text"
-                autoComplete="name"
-                required
-                value={formData.firstname}
-                onChange={handleChange}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div>
-            <label htmlFor="lastname" className="block text-sm font-medium leading-6 text-gray-900">
-              Last Name
-            </label>
-            <div className="mt-2">
-              <input
-                id="lastname"
-                name="lastname"
-                type="text"
-                autoComplete="name"
-                required
-                value={formData.lastname}
-                onChange={handleChange}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-              UserName
-            </label>
-            <div className="mt-2">
-              <input
-                id="username"
-                name="username"
-                type="text"
-                autoComplete="username"
-                required
-                value={formData.username}
-                onChange={handleChange}
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
               Email
@@ -119,12 +51,12 @@ const Register = () => {
                 type="email"
                 autoComplete="email"
                 required
-                value={formData.email}
-                onChange={handleChange}
+                onChange={e => setData({ ...data, email: e.target.value })}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
+
           <div>
             <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
               Phone Number
@@ -136,12 +68,45 @@ const Register = () => {
                 type="text"
                 autoComplete="phone number"
                 required
-                value={formData.phone}
-                onChange={handleChange}
+                onChange={e => setData({ ...data, phone: e.target.value })}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
+
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+              Username
+            </label>
+            <div className="mt-2">
+              <input
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="username"
+                required
+                onChange={e => setData({ ...data, username: e.target.value })}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+              Password
+            </label>
+            <div className="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                onChange={e => setData({ ...data, password: e.target.value })}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
           <div>
             <button
               type="submit"
@@ -150,8 +115,7 @@ const Register = () => {
               <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                 <LockClosedIcon className='h-5 w-5 text-purple-400 group-hover:text-indigo-400' aria-hidden="true" />
               </span>
-              <Link to="/login">Sign Up</Link>
-              
+              Sign Up
             </button>
           </div>
         </form>
@@ -167,60 +131,3 @@ const Register = () => {
 };
 
 export default Register;
-
-
-
-// import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import axios from 'axios'
-
-// function Register() {
-
-//   const[formData, setFormData] = useState({
-//     firstname:"",
-//     lastname:"",
-//     lastname:"",
-//     emailname:"",
-//     username:"",
-//     phone:""
-//   })
-
-//  const handleSubmit = (e) =>{
-
-//   e.preventDefault();
-//   try{
-
-//     axios.post('https://policy-link-rwanda-client-project-with.onrender.com/account/signup/')
-//     .then((res) =>{
-//       if(res.data){
-//         console.log("this is formdata", res.data);
-//       }
-//     })
-
-//   }catch(err){}
-//  }
-//   return (
-//     <div>
-
-//       <form onSubmit={handleSubmit}>
-//         <div>
-//           <label htmlFor="firstname">Fname</label>
-//           <input type="text" name='firstname' placeholder='Enter Your name' onChange={e=> setFormData ({...formData, firstname:e.target.value})} />
-//         </div>
-//         <div>
-//           <label htmlFor="lastname">lastname</label>
-//           <input type="text" name='lastname' placeholder='Enter Your name' onChange={e=> setFormData ({...formData, lastname:e.target.value})} />
-//         </div>
-//         <button>Register</button>
-//         <div></div>
-//         <div></div>
-//         <div></div>
-//         <div></div>
-//       </form>
-      
-//     </div>
-//   )
-// }
-
-// export default Register
-

@@ -18,14 +18,19 @@ function Sidebar() {
 
   const handleLinkClick = (index) => {
     setActiveLink(index);
-  
+    // if (index === 2) {
+    //   setIsInstitutionOpen(!isInstitutionOpen);
+    // } else {
+    //   setIsInstitutionOpen(false);
+    // }
   };
 
   const Sidebar_Links = [
-   
+    { id: 1, name: 'Dashboard', path: '/admin', icon: <MdDashboard /> },
+    // { id: 2, name: 'Users', path: '/admin/users', icon: <FaUsers /> },
     { id: 6, name: 'Coments', path: '/user/coments', icon: <FaCommentDots /> },
-    { id: 6, name: 'Request', path: '/user/requests', icon: <FaCodePullRequest /> },
-    
+    { id: 6, name: 'Requests', path: '/user/requests', icon: <FaCodePullRequest /> },
+   
   ];
 
   return (
