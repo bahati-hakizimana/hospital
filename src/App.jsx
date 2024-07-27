@@ -71,6 +71,7 @@ import UserProfil from './components/pages/userPages/UserProfil';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import ProtectRoute from './components/utils/ProtectRoute';
+import UpdateUser from "./components/pages/adminPages/UpdateUser";
 
 const App = () => {
   return (
@@ -81,23 +82,24 @@ const App = () => {
         <Route path="/signup" element={<Register />} />
 
         {/* ADMIN ROUTES */}
-        <Route element={<ProtectRoute allowedRoles={['admin']} />}>
+        
           <Route path="/admin" element={<Layout />}>
             <Route path="users" element={<Users />} />
             <Route path="coments" element={<Coments />} />
             <Route path="requests" element={<Request />} />
             <Route path="profile" element={<Profil />} />
-          </Route>
+            <Route path="/admin/updateuser/:id" element={<UpdateUser />} />
+          
         </Route>
 
         {/* USER ROUTES */}
-        <Route element={<ProtectRoute allowedRoles={['user']} />}>
+        
           <Route path="/user" element={<User_Layout />}>
             <Route path="coments" element={<UserComents />} />
             <Route path="requests" element={<UserRequest />} />
             <Route path="profile" element={<UserProfil />} />
           </Route>
-        </Route>
+        
 
         {/* Unauthorized Route */}
         <Route path="/unauthorized" element={<div>Unauthorized Access</div>} />

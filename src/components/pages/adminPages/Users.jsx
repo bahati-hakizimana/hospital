@@ -1,97 +1,88 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { MdAutoDelete } from 'react-icons/md';
+import { FaEdit } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-function Users() {
+const Users = () => {
   const [users, setUsers] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const token = localStorage.getItem('access_token'); // Updated token key
+        if (!token) {
+          setError('No access token found');
+          return;
+        }
+
+        const response = await fetch('http://127.0.0.1:8000/users/', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setUsers(data.users);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        setError('Error fetching users. Please check your credentials and try again.');
+      }
+    };
+
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:8000/users');
-      if (!response.ok) {
-        throw new Error('Network response was not ok.');
-      }
-      const data = await response.json();
-      const filteredUsers = data.map(user => ({
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        phone: user.phone,
-        role: user.role,
-        first_name: user.first_name,
-        last_name: user.last_name
-      }));
-      setUsers(filteredUsers);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    }
-  };
-
   return (
-    <>
-      <h1 className='text-center text-black text-xl capitalize mb-4'>Users</h1>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div className="container mx-auto mt-10">
+      <h1 className="text-2xl font-bold mb-4">User List</h1>
+      {error && <p className="text-red-500">{error}</p>}
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-blue-400 text-white">
             <tr>
-              <th scope="col" className="px-6 py-3">
-                ID
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Username
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Email
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Phone
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Role
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Action
-              </th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Username</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Email</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Role</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Created Date</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Actions</th>
             </tr>
           </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={index} className={`${index % 2 === 0 ? 'even:bg-gray-50 even:dark:bg-gray-800' : 'odd:bg-white odd:dark:bg-gray-900'} border-b dark:border-gray-700`}>
-                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {user.id}
-                </td>
-                <td className="px-6 py-4">
-                  {user.username}
-                </td>
-                <td className="px-6 py-4">
-                  {user.email}
-                </td>
-                <td className="px-6 py-4">
-                  {user.phone}
-                </td>
-                <td className="px-6 py-4">
-                  {user.role}
-                </td>
-                <td className="px-6 py-4">
-                  {`${user.first_name} ${user.last_name}`}
-                </td>
-                <td className="flex gap-4 px-6 py-4">
-                  {/* <Link to={`edit/${user.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link> */}
-                  <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                </td>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {users.length === 0 ? (
+              <tr>
+                <td colSpan="6" className="py-4 text-center text-gray-500">No users found.</td>
               </tr>
-            ))}
+            ) : (
+              users.map((user) => (
+                <tr key={user.id}>
+                  <td className="py-4 px-6 text-sm text-gray-500">{user.username}</td>
+                  <td className="py-4 px-6 text-sm text-gray-500">{user.email}</td>
+                  <td className="py-4 px-6 text-sm text-gray-500">{user.role}</td>
+                  <td className="py-4 px-6 text-sm text-gray-500">{new Date(user.created_date).toLocaleString()}</td>
+                  <td className="py-4 px-6 text-sm text-gray-500 flex space-x-2">
+                    <Link to={`/admin/updateuser/${user.id}`} className="text-gray-700 hover:text-green-500">
+                      <FaEdit className="text-xl" />
+                    </Link>
+                    <button className="text-gray-700 hover:text-red-500">
+                      <MdAutoDelete className="text-xl" />
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
-}
+};
 
 export default Users;

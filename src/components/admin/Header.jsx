@@ -100,8 +100,8 @@ const Header = () => {
           />
           {dropdownOpen && (
             <div className='absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20'>
-              <Link to="/admin/profile" className='block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white'>Profile</Link>
-              <button onClick={handleLogout} className='block w-full text-left px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white'>Logout</button>
+              {/* <Link to="/admin/profile" className='block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white'>Profile</Link> */}
+              <Link to="/login" onClick={handleLogout} className='block w-full text-left px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white'>Logout</Link>
             </div>
           )}
         </div>
