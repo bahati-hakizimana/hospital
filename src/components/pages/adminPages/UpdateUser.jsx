@@ -65,6 +65,7 @@ const UpdateUser = () => {
       });
 
       if (!response.ok) {
+        console.log("no data");
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 

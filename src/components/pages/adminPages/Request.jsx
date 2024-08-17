@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { MdAutoDelete } from 'react-icons/md';
 import { FaEdit, FaPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import logo from '../../../assets/police_image/logo_lil.jpeg'; // Adjust path if needed
 
 const Request = () => {
   const [events, setEvents] = useState([]);
@@ -68,13 +71,70 @@ const Request = () => {
     }
   };
 
+  const handleDownloadPDF = () => {
+    try {
+      const doc = new jsPDF();
+  
+      // Convert the image to a base64 string
+      const img = new Image();
+      img.src = logo;
+  
+      img.onload = () => {
+        // Add the logo to the PDF
+        doc.addImage(img, 'JPEG', 10, 10, 30, 30); // Positioning the logo
+  
+        // Add the report name next to the logo
+        doc.setFontSize(20);
+        doc.text('Request Report', 50, 25); // Positioning the text next to the logo
+  
+        // Draw a line under the header (optional)
+        doc.setLineWidth(0.5);
+        doc.line(10, 45, 200, 45);
+  
+        // Define the columns for the table
+        const tableColumn = ["Name", "Request", "Created Date"];
+  
+        // Define the rows for the table
+        const tableRows = events.map(event => [
+          event.name, event.description,
+          new Date(event.created_date).toLocaleString()
+        ]);
+  
+        // Generate the table in the PDF
+        doc.autoTable({
+          head: [tableColumn],
+          body: tableRows,
+          startY: 50, // Start the table below the logo and title
+          theme: 'striped',
+          styles: {
+            fontSize: 10,
+          },
+          headStyles: {
+            fillColor: [41, 128, 185],
+            textColor: [255, 255, 255],
+          },
+        });
+  
+        // Save the generated PDF
+        doc.save('request_report.pdf');
+      };
+    } catch (error) {
+      console.error('Error generating PDF report:', error);
+      setError('Error generating PDF report. Please try again.');
+    }
+  };
+
   return (
     <div className="container mx-auto mt-10">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Request List</h1>
-        {/* <Link to="/admin/addevent" className="btn btn-primary text-white bg-blue-500 hover:bg-blue-600 rounded-md px-4 py-2 flex items-center">
-          <FaPlus className="mr-2" /> Add Event
-        </Link> */}
+        {/* Add a button to download PDF report */}
+        <button
+          onClick={handleDownloadPDF}
+          className="btn btn-primary text-white bg-blue-500 hover:bg-blue-600 rounded-md px-4 py-2 flex items-center"
+        >
+          Download PDF Report
+        </button>
       </div>
 
       {error && <p className="text-red-500">{error}</p>}
@@ -82,7 +142,7 @@ const Request = () => {
       <div className="overflow-x-auto">
         <div className="inline-block min-w-full py-2 align-middle">
           <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-300">
+            <table id="report-table" className="min-w-full divide-y divide-gray-300">
               <thead className="bg-blue-400 text-white">
                 <tr>
                   <th className="py-3.5 pl-6 text-left text-sm font-semibold">Name</th>
@@ -125,4 +185,4 @@ const Request = () => {
   );
 };
 
-export default Request
+export default Request;

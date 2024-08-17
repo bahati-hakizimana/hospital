@@ -28,7 +28,7 @@ function Sidebar() {
   const Sidebar_Links = [
     { id: 1, name: 'Dashboard', path: '/admin', icon: <MdDashboard /> },
     { id: 2, name: 'Users', path: '/admin/users', icon: <FaUsers /> },
-    { id: 6, name: 'Coments', path: '/admin/coments', icon: <FaCommentDots /> },
+    { id: 6, name: 'Feedbacks', path: '/admin/coments', icon: <FaCommentDots /> },
     { id: 6, name: 'Requests', path: '/admin/requests', icon: <FaCodePullRequest /> },
    
   ];

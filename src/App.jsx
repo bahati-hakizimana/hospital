@@ -72,6 +72,7 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import ProtectRoute from './components/utils/ProtectRoute';
 import UpdateUser from "./components/pages/adminPages/UpdateUser";
+import Dashboard from "./components/pages/adminPages/Dashboard";
 
 const App = () => {
   return (
@@ -84,6 +85,7 @@ const App = () => {
         {/* ADMIN ROUTES */}
         
           <Route path="/admin" element={<Layout />}>
+          <Route index element={<Dashboard />} />
             <Route path="users" element={<Users />} />
             <Route path="coments" element={<Coments />} />
             <Route path="requests" element={<Request />} />
